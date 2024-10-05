@@ -97,20 +97,20 @@ int insertSortedLL(LinkedList* ll, int item)
         return -1;
 
     // 리스트가 비어있거나 첫 번째 노드보다 작은 경우
-    if (ll->head == NULL || item < ll->head->item) {
-        return insertNode(ll, 0, item);
+    if (ll->head == NULL || item < ll->head->item) {	// ll의 head가 비었거나 입력받은 item이 ll의 첫 값보다 작을 경우
+        return insertNode(ll, 0, item);					// 입력값을 바로 ll의 처음으로 지정
     }
 
     // ll이 비어있지 않을 경우 적절한 삽입 위치 찾기
-    cur = ll->head;								// cur는 현재 리스트의 head를 가르키기
-    while (cur != NULL && item > cur->item) {	// 
-        cur = cur->next;						// 
-        index++;								// 
+    cur = ll->head;								// cur는 현재 리스트의 head를 가리키기
+    while (cur != NULL && item > cur->item) {	// cur가 NULL이 아니면서 입력받은 값이 cur의 값보다 크다면
+        cur = cur->next;						// cur가 가리키는 노드(next)를 cur에 할당하고
+        index++;								// index를 ++
     }
 
     // 이미 존재하는 값인 경우
-    if (cur != NULL && item == cur->item) {
-        return -1;
+    if (cur != NULL && item == cur->item) {		// cur가 존재하는데 입력받은 item값이 cur에 담긴 값과 같을 때
+        return -1;								// -1로 리턴
     }
 
     // 새 노드 삽입
