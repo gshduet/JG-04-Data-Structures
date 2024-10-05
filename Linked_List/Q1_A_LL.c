@@ -88,9 +88,33 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
-int insertSortedLL(LinkedList *ll, int item)
+int insertSortedLL(LinkedList* ll, int item)
 {
-	/* add your code here */
+	int index = 0;
+    ListNode *cur;
+
+    if (ll == NULL)
+        return -1;
+
+    // 리스트가 비어있거나 첫 번째 노드보다 작은 경우
+    if (ll->head == NULL || item < ll->head->item) {
+        return insertNode(ll, 0, item);
+    }
+
+    // ll이 비어있지 않을 경우 적절한 삽입 위치 찾기
+    cur = ll->head;								// cur는 현재 리스트의 head를 가르키기
+    while (cur != NULL && item > cur->item) {	// 
+        cur = cur->next;						// 
+        index++;								// 
+    }
+
+    // 이미 존재하는 값인 경우
+    if (cur != NULL && item == cur->item) {
+        return -1;
+    }
+
+    // 새 노드 삽입
+    return insertNode(ll, index, item);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -101,7 +125,7 @@ void printList(LinkedList *ll){
 	if (ll == NULL)
 		return;
 	cur = ll->head;
-
+	
 	if (cur == NULL)
 		printf("Empty");
 	while (cur != NULL)
