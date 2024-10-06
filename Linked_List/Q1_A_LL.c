@@ -88,35 +88,77 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+// int insertSortedLL(LinkedList* ll, int item)
+// {
+// 	ListNode* cur, * pre, * newNode;	// 현재 보는 노드, 직전 노드, 새로운 노드
+// 	int index = 0;						// 삽입한 노드의 인덱스(연결리스트 중 위치)
+
+// 	newNode = (ListNode*)malloc(sizeof(ListNode));	// 새 노드 할당
+// 	newNode->item = item;
+// 	newNode->next = NULL;
+
+// 	if (ll->head == NULL) {		// 연결리스트가 비어있으면
+// 		ll->head = newNode;		// head(첫 노드)로 지정
+// 		ll->size++;				// 연결리스트 사이즈 변경
+
+// 		return index;
+// 	}
+
+// 	if (ll->head->item > item) {	// 새 노드값이 헤더보다 작은 크기의 값이면
+// 		newNode->next = ll->head;	// 새 노드의 포인터를 헤더를 향하게
+// 		ll->head = newNode;			// 새 노드를 헤더로 지정
+// 		ll->size++;
+
+// 		return index;
+// 	}
+
+// 	pre = ll->head;				// 헤더를 직전 노드로
+// 	cur = ll->head->next;		// 현재 노드를 헤더의 다음 노드로
+
+// 	while (cur != NULL) {
+// 		if (cur->item > item) {		// 새 노드값이 현재 노드값보다 작은 크기의 값이면
+// 			pre->next = newNode;	// 직전 노드의 포인터를 새 노드를 향하게
+// 			newNode->next = cur;	// 새 노드의 포인터를 현재 노드를 향하게
+// 			ll->size++;
+
+// 			return index;
+// 		}
+// 		pre = cur;				// 직전 노드를 현재 노드로
+// 		cur = cur->next;		// 현재 노드를 다음 노드로
+// 		index++;
+// 	}
+
+// 	// 모든 노드의 값보다 큰 경우
+// 	// 가장 마지막 노드 뒤에 삽입
+// 	pre->next = newNode;
+// 	ll->size++;
+
+// 	return index + 1;	// 마지막 노드 뒤에 삽입해서 인덱스는 사이즈와 같음
+
+// }
+
 int insertSortedLL(LinkedList* ll, int item)
 {
-	int index = 0;
-    ListNode *cur;
-
     if (ll == NULL)
         return -1;
 
-    // 리스트가 비어있거나 첫 번째 노드보다 작은 경우
-    if (ll->head == NULL || item < ll->head->item) {	// ll의 head가 비었거나 입력받은 item이 ll의 첫 값보다 작을 경우
-        insertNode(ll, 0, item);						// 입력값을 바로 ll의 처음으로 지정
-		return index;									// index값 반환
+    int index = 0;
+    ListNode* current = ll->head;
+
+    while (current != NULL && current->item < item) {
+        current = current->next;
+        index++;
     }
 
-    // ll이 비어있지 않을 경우 적절한 삽입 위치 찾기
-    cur = ll->head;								// cur는 현재 리스트의 head를 가리키기
-    while (cur != NULL && item > cur->item) {	// cur가 NULL이 아니면서 입력받은 값이 cur의 값보다 크다면
-        cur = cur->next;						// cur가 가리키는 노드(next)를 cur에 할당하고
-        index++;								// index를 ++
-    }
+    // Use insertNode to insert the new item
+    int result = insertNode(ll, index, item);
 
-    // 이미 존재하는 값인 경우
-    if (cur != NULL && item == cur->item) {		// cur가 존재하는데 입력받은 item값이 cur에 담긴 값과 같을 때
-        return -1;								// -1로 리턴
+    // If insertion was successful, return the index
+    if (result == 0) {
+        return index;
+    } else {
+        return -1;  // Insertion failed
     }
-
-    // 새 노드 삽입
-	insertNode(ll, index, item);
-    return index;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
