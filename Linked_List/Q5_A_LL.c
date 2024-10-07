@@ -122,7 +122,7 @@ void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, Linke
 	resultBackList->size = ll->size - front_size;
 
 	if (previous != NULL) {
-        previous->next = NULL;
+        previous->next = NULL;				// call by refer 형식으로 선언됐으니 여기서 끊으면 front도 끊긴다.
     }
 
     ll->head = NULL;
