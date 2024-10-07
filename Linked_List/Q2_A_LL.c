@@ -107,9 +107,10 @@ void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 		return;
 	}
 
-	ListNode *cur1 = ll1->head;
-    ListNode *cur2 = ll2->head;
-    ListNode *next1, *next2;		// 현재 각각의 ll의 head를 가리키는 커서들과 다음 노드를 가리킬 포인터 next
+	ListNode* cur1 = ll1->head;
+    ListNode* cur2 = ll2->head;
+    ListNode* next1;		// 현재 각각의 ll의 head를 가리키는 커서들과 다음 노드를 가리킬 포인터 next
+	ListNode* next2;		// 현재 각각의 ll의 head를 가리키는 커서들과 다음 노드를 가리킬 포인터 next
 
 	while (cur1 != NULL && cur2 != NULL) {
 		next1 = cur1->next;

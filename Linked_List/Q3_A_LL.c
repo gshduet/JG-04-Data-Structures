@@ -84,9 +84,48 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
-void moveOddItemsToBack(LinkedList *ll)
-{
-	/* add your code here */
+void moveOddItemsToBackLL(LinkedList *ll) {
+    if (ll->head == NULL || ll->head->next == NULL) {
+        return; // 리스트가 비어있거나 노드가 하나뿐이면 아무 것도 하지 않음
+    }
+
+    ListNode* cur = ll->head;
+    ListNode* lastEven = NULL;
+    ListNode* firstOdd = NULL;
+    ListNode* lastOdd = NULL;
+
+    while (cur != NULL) {
+        ListNode* next = cur->next;
+
+        if (cur->item % 2 == 0) { // 짝수인 경우
+            if (lastEven == NULL) {
+                ll->head = cur; // 첫 번째 짝수를 헤드로 설정
+            } else {
+                lastEven->next = cur;
+            }
+            lastEven = cur;
+        } else { // 홀수인 경우
+            if (firstOdd == NULL) {
+                firstOdd = cur;
+            }
+            if (lastOdd != NULL) {
+                lastOdd->next = cur;
+            }
+            lastOdd = cur;
+        }
+
+        cur = next;
+    }
+
+    if (lastEven != NULL) {
+        lastEven->next = firstOdd; // 짝수들 뒤에 홀수들 연결
+    } else {
+        ll->head = firstOdd; // 모든 수가 홀수인 경우
+    }
+
+    if (lastOdd != NULL) {
+        lastOdd->next = NULL; // 마지막 홀수 노드의 next를 NULL로 설정
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
