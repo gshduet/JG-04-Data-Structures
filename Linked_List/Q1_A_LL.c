@@ -139,7 +139,7 @@ int main()
 
 int insertSortedLL(LinkedList* ll, int item)
 {
-    if (ll == NULL)
+    if (ll == NULL)		// 해당 부분은 사실 main루틴 첫 줄에 LinkedList ll;로 선언하였으니 불필요하지 않나..?
         return -1;
 
     int index = 0;

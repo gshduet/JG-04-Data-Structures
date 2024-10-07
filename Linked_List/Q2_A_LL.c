@@ -103,7 +103,26 @@ int main()
 
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
-    /* add your code here */
+	if (ll1->head == NULL || ll2->head == NULL ) {	// ll1과 ll2가 선언되지 않는 경우는 없을테니 각각이 빈 리스트인지만 확인하고 종료시키기
+		return;
+	}
+
+	ListNode *cur1 = ll1->head;
+    ListNode *cur2 = ll2->head;
+    ListNode *next1, *next2;		// 현재 각각의 ll의 head를 가리키는 커서들과 다음 노드를 가리킬 포인터 next
+
+	while (cur1 != NULL && cur2 != NULL) {
+		next1 = cur1->next;
+		next2 = cur2->next;		// ll1과 ll2에 대해 현재 노드의 next 노드를 기억할 필요가 있으니 저장
+
+		cur1->next = cur2;		// ll1의 다음 노드를 ll2의 현재 노드로 변경
+		cur2->next = next1;		// ll2의 다음 노드는 ll1의 다음 노드로 변경
+
+		cur1 = next1;
+		cur2 = next2;			// 각각 다음 노드로 변경
+	}
+
+	ll2->head = cur2;			// ll2의 남은 리스트가 있다면 출력해야 하니 병합 후 남은 노드로 연결
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
