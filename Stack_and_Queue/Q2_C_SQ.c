@@ -113,7 +113,18 @@ int main()
 
 void createStackFromLinkedList(LinkedList *ll, Stack *s)
 {
-    /* add your code here */
+	ListNode* temporary = ll->head;
+	
+	if (ll == NULL || temporary == NULL) {
+		return;
+	}
+
+	removeAllItemsFromStack(s);
+
+	while (temporary != NULL) {
+		push(s, temporary->item);
+		temporary = temporary->next;
+	}
 }
 
 void removeEvenValues(Stack *s)
